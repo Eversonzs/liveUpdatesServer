@@ -1,2 +1,2 @@
 # liveUpdatesServer
-Repository for developer challenge about live updates.
+Repository for the server of developer challenge about live updates.
