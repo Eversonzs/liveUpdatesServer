@@ -1,0 +1,37 @@
+{
+  "name": "liveupdatesserver",
+  "version": "0.0.1",
+  "description": "Server of developer challenge about live updates",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "server": "node ./node_modules/nodemon/bin/nodemon.js app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Eversonzs/liveUpdatesServer.git"
+  },
+  "keywords": [
+    "liveUpdates"
+  ],
+  "author": {
+    "name": "Everson Zelaya Sanchez",
+    "gitHubUsername": "Eversonzs",
+    "gitHubUser": "https://github.com/Eversonzs"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eversonzs/liveUpdatesServer/issues"
+  },
+  "homepage": "https://github.com/Eversonzs/liveUpdatesServer#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-timeout": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.3"
+  }
+}
