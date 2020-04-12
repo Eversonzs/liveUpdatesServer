@@ -1,13 +1,16 @@
+const bcrypt = require('bcryptjs');
 const logger = require('../../../../logger')('controller-userLogin');
-const bcrypt = require("bcryptjs");
+const { getUserLogin } = require('../postgresql/user');
 
 module.exports = {
   async userLogin (req, res) {
-    const { username, password } = req.body;
-    logger.info('username, password', username, password);
+    const { email, password } = req.body;
     try {
         const encryptedPassword = await bcrypt.hash(password, 8);
-        logger.info('encryptedPassword', encryptedPassword);
+        // TODO: change encrypted library.
+        logger.debug('encryptedPassword-->', encryptedPassword)
+        const userLogin = await getUserLogin(email, password);
+        logger.debug('userLogin-->>', userLogin);
     } catch (error) {
         logger.error('Error encrypting password.');
     }
