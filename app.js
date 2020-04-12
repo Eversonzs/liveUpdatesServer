@@ -1,9 +1,9 @@
-import express from 'express';
-import timeout from 'connect-timeout';
-import morganLogger from 'morgan';
-import { urlencoded, json } from "body-parser";
-import SETTINGS from './settings';
-import cors from 'cors';
+const express = require('express');
+const timeout = require('connect-timeout');
+const morganLogger = require('morgan');
+const bp = require('body-parser');
+const SETTINGS = require('./settings');
+const cors = require('cors');
 
 const app = express();
 
@@ -22,8 +22,8 @@ app.use(
     })
 );
 
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(bp.urlencoded({ extended: false }));
+app.use(bp.json());
 app.use(timeout('3000s'));
 app.use(morganLogger('dev'));
 
@@ -35,4 +35,4 @@ app.use((req, res) => {
   res.status(200).json({ message: `Server is running on port ${PORT}` });
 });
 
-export default app;
+module.exports = app;
