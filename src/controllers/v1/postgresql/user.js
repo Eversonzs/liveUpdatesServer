@@ -2,12 +2,12 @@ const logger = require('../../../../logger')('controllers-v1-postgresql-user');
 const pool = require('../../../services/postgresql/postgresqlConnection');
 
 module.exports = {
-  getUserLogin (email, password) {
+  getUserByEmail (email) {
     const queryGetUserLogin = `SELECT username, email, password
       FROM live_updates.user
-      WHERE email = $1 and password = $2
+      WHERE email = $1
     `;
-    const userData = [email, password];
+    const userData = [email];
     return pool.query(queryGetUserLogin, userData)
         .then(userResponse => {
           if (userResponse.rowCount === 1) {
