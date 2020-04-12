@@ -1,0 +1,9 @@
+{
+    "error": {
+        "badRequest": { "code": 400, "messageCode": "Bad Request" },
+        "notFound": { "code": 404, "messageCode": "Not Found" }
+    },
+    "success": {
+        "ok": { "code": 200, "messageCode": "OK" }
+    }
+}

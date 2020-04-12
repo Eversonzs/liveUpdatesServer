@@ -2,15 +2,24 @@ const bcrypt = require('bcryptjs');
 const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-user');
 const { getUserByEmail } = require('../postgresql/user');
+const {
+  errorMissingEmail,
+  errorMissingPassword,
+  userFound,
+} = require('../../../helpers/responseCode/customizeResponseCode/user');
 
 module.exports = {
   async userLogin (req, res) {
     const { email, password } = req.body;
     if (isEmpty(email)) {
-      return res.status(400).json({ code: 400, message: 'Email field is required.' });
+      logger.error(errorMissingEmail.message);
+      return res.status(errorMissingEmail.code)
+        .json({ code: errorMissingEmail.code, message: errorMissingEmail.message });
     }
     if (isEmpty(password)) {
-      return res.status(400).json({ code: 400, message: 'Password field is required.' });
+      logger.error(errorMissingPassword.message);
+      return res.status(errorMissingPassword.code)
+        .json({ code: errorMissingPassword.code, message: errorMissingPassword.message });
     }
     try {
         // Generate encrypt password to save on db (or receive it from FE)
@@ -18,8 +27,8 @@ module.exports = {
         const encryptedPassword = bcrypt.hashSync(password, salt);
         
         const userLogin = await getUserByEmail(email);
-        let responseCode = userLogin.code || 200;
-        let responseMessage = userLogin.message || 'User found.'
+        let responseCode = userLogin.code || userFound.code;
+        let responseMessage = userLogin.message || userFound.message;
         if (responseCode === 404) {
             return res.status(responseCode).json({ code: responseCode, message: responseMessage });
         }

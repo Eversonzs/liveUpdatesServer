@@ -1,5 +1,6 @@
 const logger = require('../../../../logger')('controllers-v1-postgresql-user');
 const pool = require('../../../services/postgresql/postgresqlConnection');
+const { userNotFound } = require('../../../helpers/responseCode/customizeResponseCode/user');
 
 module.exports = {
   getUserByEmail (email) {
@@ -13,7 +14,7 @@ module.exports = {
           if (userResponse.rowCount === 1) {
             return userResponse.rows[0];
           }
-          return { code: 404, message: 'User not found.' }; 
+          return { code: userNotFound.code, message: userNotFound.message }; 
         })
         .catch(error =>
           setImmediate(() => {
