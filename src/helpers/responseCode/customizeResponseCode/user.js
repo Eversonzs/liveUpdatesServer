@@ -2,7 +2,7 @@ const {
     success: { ok },
     error: { badRequest, notFound },
 } = require('../standardResponseCode');
-  
+
 module.exports = {
   errorMissingEmail: {
     message: 'Error, the email field is missing',
@@ -11,6 +11,21 @@ module.exports = {
   },
   errorMissingPassword: {
     message: 'Error, password field is missing',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode,
+  },
+  errorMissingUsername: {
+    message: 'Error, username field is missing',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode,
+  },
+  errorMissingName: {
+    message: 'Error, name field is missing',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode,
+  },
+  errorMissingLastName: {
+    message: 'Error, lastName field is missing',
     code: badRequest.code,
     messageCode: badRequest.messageCode,
   },

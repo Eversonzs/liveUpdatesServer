@@ -5,6 +5,9 @@ const { getUserByEmail } = require('../postgresql/user');
 const {
   errorMissingEmail,
   errorMissingPassword,
+  errorMissingUsername,
+  errorMissingName,
+  errorMissingLastName,
   userFound,
 } = require('../../../helpers/responseCode/customizeResponseCode/user');
 
@@ -52,6 +55,7 @@ module.exports = {
       birthday,
       cellphone,
     } =  req.body;
+
     logger.debug(`username,
     email,
     password,
@@ -65,6 +69,33 @@ module.exports = {
     lastName,
     birthday,
     cellphone,);
+
+    // Validate required fields received from FE.
+    if (isEmpty(email)) {
+      logger.error(errorMissingEmail.message);
+      return res.status(errorMissingEmail.code)
+        .json({ code: errorMissingEmail.code, message: errorMissingEmail.message });
+    }
+    if (isEmpty(password)) {
+      logger.error(errorMissingPassword.message);
+      return res.status(errorMissingPassword.code)
+        .json({ code: errorMissingPassword.code, message: errorMissingPassword.message });
+    }
+    if (isEmpty(username)) {
+      logger.error(errorMissingUsername.message);
+      return res.status(errorMissingUsername.code)
+        .json({ code: errorMissingUsername.code, message: errorMissingUsername.message });
+    }
+    if (isEmpty(Name)) {
+      logger.error(errorMissingName.message);
+      return res.status(errorMissingName.code)
+        .json({ code: errorMissingName.code, message: errorMissingName.message });
+    }
+    if (isEmpty(lastName)) {
+      logger.error(errorMissingLastName.message);
+      return res.status(errorMissingLastName.code)
+        .json({ code: errorMissingLastName.code, message: errorMissingLastName.message });
+    }
 
     res.status(200).json({ code: 200, message: 'Done' });
   },
