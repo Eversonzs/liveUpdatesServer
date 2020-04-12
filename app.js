@@ -9,6 +9,8 @@ const app = express();
 
 const { PORT } = SETTINGS;
 
+const versionRouter = require('./src/routes/v1/version');
+
 app.use(
     cors({
       allowedHeaders: [
@@ -26,6 +28,8 @@ app.use(bp.urlencoded({ extended: false }));
 app.use(bp.json());
 app.use(timeout('3000s'));
 app.use(morganLogger('dev'));
+
+app.use('/appVersion', versionRouter);
 
 app.listen(PORT, function () {
     console.log(`Express server listening on port ${PORT}`);
