@@ -18,7 +18,8 @@
   "author": {
     "name": "Everson Zelaya Sanchez",
     "gitHubUsername": "Eversonzs",
-    "gitHubUser": "https://github.com/Eversonzs"
+    "gitHubUser": "https://github.com/Eversonzs",
+    "email": "eversonzs@hotmail.com"
   },
   "license": "ISC",
   "bugs": {
@@ -31,6 +32,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3"
   },

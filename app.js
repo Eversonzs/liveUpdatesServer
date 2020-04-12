@@ -4,10 +4,13 @@ const morganLogger = require('morgan');
 const bp = require('body-parser');
 const SETTINGS = require('./settings');
 const cors = require('cors');
+const basicAuth = require('express-basic-auth');
 
 const app = express();
 
 const { PORT } = SETTINGS;
+
+const { myAuthorizer, getUnauthorizedResponse } = require('./src/controllers/v1/api/basicAuth');
 
 const versionRouter = require('./src/routes/v1/version');
 
@@ -31,6 +34,13 @@ app.use(morganLogger('dev'));
 
 app.use('/appVersion', versionRouter);
 
+app.use(basicAuth(
+  {
+    authorizer: myAuthorizer,
+    unauthorizedResponse: getUnauthorizedResponse,
+  }
+));
+  
 app.listen(PORT, function () {
     console.log(`Express server listening on port ${PORT}`);
 });
