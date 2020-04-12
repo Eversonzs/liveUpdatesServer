@@ -2,9 +2,10 @@ const express = require('express');
 const timeout = require('connect-timeout');
 const morganLogger = require('morgan');
 const bp = require('body-parser');
-const SETTINGS = require('./settings');
 const cors = require('cors');
 const basicAuth = require('express-basic-auth');
+
+const SETTINGS = require('./settings');
 const logger = require('./logger')('server-app');
 
 const app = express();
@@ -16,16 +17,16 @@ const { myAuthorizer, getUnauthorizedResponse } = require('./src/controllers/v1/
 const versionRouter = require('./src/routes/v1/version');
 
 app.use(
-    cors({
-      allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-        'Access-Control-Allow-Origin',
-        'Access-Control-Allow-Methods',
-        'Access-Control-Request-Headers',
-        'Accept',
-      ],
-    })
+  cors({
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Methods',
+      'Access-Control-Request-Headers',
+      'Accept',
+    ],
+  })
 );
 
 app.use(bp.urlencoded({ extended: false }));
