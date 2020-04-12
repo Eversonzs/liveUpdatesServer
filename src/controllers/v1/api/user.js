@@ -1,10 +1,17 @@
 const bcrypt = require('bcryptjs');
+const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-user');
 const { getUserByEmail } = require('../postgresql/user');
 
 module.exports = {
   async userLogin (req, res) {
     const { email, password } = req.body;
+    if (isEmpty(email)) {
+      return res.status(400).json({ code: 400, message: 'Email field is required.' });
+    }
+    if (isEmpty(password)) {
+      return res.status(400).json({ code: 400, message: 'Password field is required.' });
+    }
     try {
         // Generate encrypt password to save on db (or receive it from FE)
         const salt = bcrypt.genSaltSync(10);
@@ -49,7 +56,7 @@ module.exports = {
     lastName,
     birthday,
     cellphone,);
-    
+
     res.status(200).json({ code: 200, message: 'Done' });
   },
 };
