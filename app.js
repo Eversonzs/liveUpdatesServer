@@ -5,6 +5,7 @@ const bp = require('body-parser');
 const SETTINGS = require('./settings');
 const cors = require('cors');
 const basicAuth = require('express-basic-auth');
+const logger = require('./logger')('server-app');
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.use(basicAuth(
 ));
   
 app.listen(PORT, function () {
-    console.log(`Express server listening on port ${PORT}`);
+  logger.info(`Express server listening on port ${PORT}`);
 });
 
 app.use((req, res) => {
