@@ -1,6 +1,7 @@
 module.exports = {
     "extends": "standard",
     "rules": {
+        "max-len": [2, 80, 4],
         "quotes": [
             "error",
             "single",

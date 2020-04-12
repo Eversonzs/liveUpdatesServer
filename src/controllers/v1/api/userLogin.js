@@ -11,13 +11,19 @@ module.exports = {
         const encryptedPassword = bcrypt.hashSync(password, salt);
         
         const userLogin = await getUserByEmail(email);
+        let responseCode = userLogin.code || 200;
+        let responseMessage = userLogin.message || 'User found.'
+        if (responseCode === 404) {
+            res.status(responseCode).json({ code: responseCode, message: responseMessage });
+        }
         logger.debug('userLogin-->>', userLogin);
         // Compare if password match
         const passwordMatch = bcrypt.compareSync(password, userLogin.password);
         logger.debug('passwordMatch====>>>', passwordMatch);
+        // TODO: send response if user password does not match
+        res.status(responseCode).json({ code: 200, message: responseMessage, user: userLogin });
     } catch (error) {
         logger.error(`Error retrieving user data: ${error}`);
     }
-    res.status(200).json({ message: 'Done', code: 200 });
   },
 };
