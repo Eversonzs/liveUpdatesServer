@@ -11,4 +11,5 @@ module.exports = {
   POSTGRESQL_CONNECTION: process.env.POSTGRESQL_CONNECTION,
   API_USERNAME: process.env.API_USERNAME,
   API_PASSWORD: process.env.API_PASSWORD,
+  LOGGER_LEVEL: process.env.LOGGER_LEVEL || 'debug',
 };
