@@ -26,4 +26,30 @@ module.exports = {
         logger.error(`Error retrieving user data: ${error}`);
     }
   },
+  createUser(req, res) {
+    const {
+      username,
+      email,
+      password,
+      name,
+      lastName,
+      birthday,
+      cellphone,
+    } =  req.body;
+    logger.debug(`username,
+    email,
+    password,
+    name,
+    lastName,
+    birthday,
+    cellphone,`, username,
+    email,
+    password,
+    name,
+    lastName,
+    birthday,
+    cellphone,);
+    
+    res.status(200).json({ code: 200, message: 'Done' });
+  },
 };
