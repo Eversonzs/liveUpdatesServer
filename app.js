@@ -16,7 +16,7 @@ const { myAuthorizer, getUnauthorizedResponse } = require('./src/controllers/v1/
 
 // Routes directory
 const versionRouter = require('./src/routes/v1/version');
-const apiUserLoginV1Router = require('./src/routes/v1/api/userLogin');
+const apiUserV1Router = require('./src/routes/v1/api/user');
 
 app.use(
   cors({
@@ -46,7 +46,7 @@ app.use(basicAuth(
 ));
 
 // Set Routing prefixes
-app.use('/api/v1/userLogin', apiUserLoginV1Router);
+app.use('/api/v1/user', apiUserV1Router);
 
 app.listen(PORT, function () {
   logger.info(`Express server listening on port ${PORT}`);

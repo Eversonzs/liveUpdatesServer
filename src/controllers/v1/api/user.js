@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const logger = require('../../../../logger')('controller-userLogin');
+const logger = require('../../../../logger')('controller-user');
 const { getUserByEmail } = require('../postgresql/user');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         let responseCode = userLogin.code || 200;
         let responseMessage = userLogin.message || 'User found.'
         if (responseCode === 404) {
-            res.status(responseCode).json({ code: responseCode, message: responseMessage });
+            return res.status(responseCode).json({ code: responseCode, message: responseMessage });
         }
         logger.debug('userLogin-->>', userLogin);
         // Compare if password match
