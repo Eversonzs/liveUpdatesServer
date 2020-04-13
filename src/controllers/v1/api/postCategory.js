@@ -3,7 +3,7 @@ const logger = require('../../../../logger')('controller-postCategory');
 const { errorMissingName } = require('../../../helpers/responseCode/customizeResponseCode/postCategory');
 
 module.exports = {
-  createCategory (req, res) {
+  createPostCategory (req, res) {
     const { name, description } = req.body;
     logger.debug('name - description', name, ' - ', description);
     if (isEmpty(name)) {
