@@ -5,7 +5,22 @@ const {
 
 module.exports = {
   errorMissingTitle: {
-    message: 'Error, the title field is missing',
+    message: 'Error, title field is missing',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode,
+  },
+  errorMissingDescription: {
+    message: 'Error,description field is missing',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode,
+  },
+  errorMissingPostCategoryId: {
+    message: 'Error, post category id field is missing',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode,
+  },
+  errorMissingUserId: {
+    message: 'Error, user id field is missing',
     code: badRequest.code,
     messageCode: badRequest.messageCode,
   },
