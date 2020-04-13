@@ -6,7 +6,11 @@ const {
     errorMissingUserId,
     errorMissingDescription,
 } = require('../../../helpers/responseCode/customizeResponseCode/post');
-const { createPost, getPostsByCategoryId } = require('../postgresql/post');
+const {
+    createPost,
+    getPostsByCategoryId,
+    getAllPosts,
+} = require('../postgresql/post');
 
 module.exports = {
   async createPost (req, res) {
@@ -69,6 +73,20 @@ module.exports = {
 
     try {
         const posts = await getPostsByCategoryId(postCategoryId);
+        if (posts.code !== 200) {
+            logger.error(posts.message);
+        }
+        logger.info(posts.message);
+        res.status(posts.code).json(posts);
+    } catch (error) {
+        logger.error(`There was an error: ${error}`);
+        return res.status(400).json({ code: 400, message: error });
+    }
+  },
+
+  async getAllPosts (req, res) {
+    try {
+        const posts = await getAllPosts();
         if (posts.code !== 200) {
             logger.error(posts.message);
         }
