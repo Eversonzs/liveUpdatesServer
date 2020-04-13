@@ -6,6 +6,7 @@ const {
 } = require('../../../controllers/v1/api/user');
 
 const router = express.Router();
+
 router.get('/login', userLogin);
 router.post('/create', createUser);
 
