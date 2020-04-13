@@ -52,4 +52,4 @@ npm run server
 - On your postgresql connection you need to exec the DDL script wich are on src/dbScripts/DDL.sql to create the schema and tables to run to project.
 
 # Author
-See the author of this project [contributors](https://github.laureate.net/Laureate/lnoh-aulas-virtuales/graphs/contributors)
+See the author of this project [contributors](https://github.com/Eversonzs/liveUpdatesServer/graphs/contributors)
