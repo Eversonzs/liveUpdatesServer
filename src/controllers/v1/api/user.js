@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-user');
-const { getUserByEmail } = require('../postgresql/user');
+const { getUserByEmail, createUser } = require('../postgresql/user');
 const {
   errorMissingEmail,
   errorMissingPassword,
@@ -45,7 +45,7 @@ module.exports = {
         logger.error(`Error retrieving user data: ${error}`);
     }
   },
-  createUser(req, res) {
+  async createUser(req, res) {
     const {
       username,
       email,
@@ -97,6 +97,22 @@ module.exports = {
         .json({ code: errorMissingLastName.code, message: errorMissingLastName.message });
     }
 
+    const userData = {
+      username,
+      email,
+      password,
+      name,
+      lastName,
+      birthday,
+      cellphone,
+    };
+
+    try {
+      const userCreated = await createUser(userData);
+      logger.debug('userCreated: ', userCreated);
+    } catch (error) {
+      logger.error(`There was an error: ${error}`);
+    }
     res.status(200).json({ code: 200, message: 'Done' });
   },
 };

@@ -24,4 +24,42 @@ module.exports = {
           })
         );
   },
+  createUser (userData) {
+    const {
+        username,
+        email,
+        password,
+        name,
+        lastName,
+        birthday,
+        cellphone,
+    } = userData;
+
+    const createUserQuery = `
+        INSERT INTO
+    `;
+    const userDataParams =  [
+        username,
+        email,
+        password,
+        name,
+        lastName,
+        birthday,
+        cellphone,
+    ];
+    return pool.query(createUserQuery, userDataParams)
+        .then(userResponse => {
+          if (userResponse.rowCount === 1) {
+            return userResponse.rows[0];
+          }
+          return { code: userNotFound.code, message: userNotFound.message }; 
+        })
+        .catch(error =>
+          setImmediate(() => {
+            const errorMessage = `There was an error: ${error}`;
+            logger.error(errorMessage);
+            return errorMessage;
+          })
+        );
+  },
 };
