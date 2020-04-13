@@ -4,7 +4,7 @@ const { userNotFound, userCreated } = require('../../../helpers/responseCode/cus
 
 module.exports = {
   getUserByEmail (email) {
-    const queryGetUserLogin = `SELECT username, email, password
+    const queryGetUserLogin = `SELECT user_id, username, email, password
       FROM live_updates.user
       WHERE email = $1
     `;
@@ -16,13 +16,11 @@ module.exports = {
           }
           return { code: userNotFound.code, message: userNotFound.message }; 
         })
-        .catch(error =>
-          setImmediate(() => {
+        .catch(error => {
             const errorMessage = `There was an error: ${error}`;
             logger.error(errorMessage);
-            return errorMessage;
-          })
-        );
+            return { code: 400, message: errorMessage };
+        })
   },
   createUser (userData) {
     const {
@@ -36,8 +34,8 @@ module.exports = {
     } = userData;
 
     const createUserQuery = `
-      INSERT INTO live_updates.user(username, email, password, name, lastname, birthday, cellphone)
-	    VALUES ($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO live_updates.user(user_id, username, email, password, name, lastname, birthday, cellphone)
+	    VALUES (nextval('live_updates.user_id'), $1, $2, $3, $4, $5, $6, $7)
     `;
     const userDataParams =  [
         username,

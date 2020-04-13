@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 ## Update
+## [0.0.5] - 2020-04-12
+* Endpoint for create post category and retrieve post categories.
+## Update
 ## [0.0.4] - 2020-04-12
 * Endpoint for create user and login added.
 ## Update
