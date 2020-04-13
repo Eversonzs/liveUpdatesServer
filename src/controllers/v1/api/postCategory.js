@@ -1,7 +1,7 @@
 const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-postCategory');
 const { errorMissingName } = require('../../../helpers/responseCode/customizeResponseCode/postCategory');
-const { createPostCategory } = require('../postgresql/postCategory');
+const { createPostCategory, getPostCategories } = require('../postgresql/postCategory');
 
 module.exports = {
   async createPostCategory (req, res) {
@@ -17,6 +17,17 @@ module.exports = {
         logger.debug('postCategoryCreated: ', postCategoryCreated);
         return res.status(postCategoryCreated.code)
           .json({ code: postCategoryCreated.code, message: postCategoryCreated.message });
+    } catch (error) {
+        logger.error(`There was an error: ${error}`);
+        return res.status(400).json({ code: 400, message: error });
+    }
+  },
+  async getPostCategories (req, res) {
+    try {
+        const postCategories = await getPostCategories();
+        logger.debug('postCategories: ', postCategories);
+        return res.status(postCategories.code)
+          .json({ code: postCategories.code, message: postCategories.message });
     } catch (error) {
         logger.error(`There was an error: ${error}`);
         return res.status(400).json({ code: 400, message: error });
