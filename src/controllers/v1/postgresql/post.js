@@ -83,6 +83,7 @@ module.exports = {
       FROM live_updates.post as A
       INNER JOIN live_updates.post_category as B ON A.post_category_id = B.post_category_id
       INNER JOIN live_updates.user AS C ON A.user_id = C.user_id
+      ORDER BY A.timestamp DESC
     `;
 
     return pool.query(getAllPostsQuery)
