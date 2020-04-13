@@ -49,7 +49,7 @@ module.exports = {
 
         const postCreated = await createPost(postData);
         logger.info('postCreated: ', postCreated);
-        return res.status(postCreated)
+        return res.status(postCreated.code)
           .json({ code: postCreated.code, message: postCreated.message });
     } catch (error) {
       logger.error(`There was an error: ${error}`);
