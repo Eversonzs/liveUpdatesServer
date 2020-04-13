@@ -1,4 +1,4 @@
-const { isEmpty } = require('lodash');
+const { isEmpty, isNumber } = require('lodash');
 const logger = require('../../../../logger')('controller-post');
 const {
     errorMissingTitle,
@@ -28,18 +28,32 @@ module.exports = {
         return res.status(errorMissingDescription.code)
           .json({ code: errorMissingDescription, message: errorMissingDescription.message });
     }
-    if (isEmpty(postCategoryId)) {
+    if (!isNumber(postCategoryId)) {
         logger.error(errorMissingPostCategoryId.message);
         return res.status(errorMissingPostCategoryId.code)
           .json({ code: errorMissingPostCategoryId.code, message: errorMissingPostCategoryId.message });
     }
-    if (isEmpty(userId)) {
+    if (!isNumber(userId)) {
         logger.error(errorMissingUserId.message);
         return res.status(errorMissingUserId.code)
           .json({ code: errorMissingUserId.code, message: errorMissingUserId.message });
     }
+    try {
+        const postData = {
+            postCategoryId,
+            userId,
+            title,
+            description,
+            image,
+        };
 
-    // TODO: add validation for required fields.
-
+        const postCreated = await createPost(postData);
+        logger.info('postCreated: ', postCreated);
+        return res.status(postCreated)
+          .json({ code: postCreated.code, message: postCreated.message });
+    } catch (error) {
+      logger.error(`There was an error: ${error}`);
+      return res.status(400).json({ code: 400, message: error });
+    }
   },
 };

@@ -10,17 +10,17 @@ module.exports = {
     messageCode: badRequest.messageCode,
   },
   errorMissingDescription: {
-    message: 'Error,description field is missing',
+    message: 'Error, description field is missing',
     code: badRequest.code,
     messageCode: badRequest.messageCode,
   },
   errorMissingPostCategoryId: {
-    message: 'Error, post category id field is missing',
+    message: 'Error, postCategoryId field has to be an id number',
     code: badRequest.code,
     messageCode: badRequest.messageCode,
   },
   errorMissingUserId: {
-    message: 'Error, user id field is missing',
+    message: 'Error, userId field has to be an id number',
     code: badRequest.code,
     messageCode: badRequest.messageCode,
   },

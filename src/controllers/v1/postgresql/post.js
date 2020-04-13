@@ -2,7 +2,7 @@ const logger = require('../../../../logger')('controllers-v1-postgresql-post');
 const pool = require('../../../services/postgresql/postgresqlConnection');
 const {
     postCreated,
-} = require('../../../helpers/responseCode/customizeResponseCode/postCategory');
+} = require('../../../helpers/responseCode/customizeResponseCode/post');
 
 module.exports = {
   createPost (postData) {
