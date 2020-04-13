@@ -16,13 +16,11 @@ module.exports = {
           }
           return { code: userNotFound.code, message: userNotFound.message }; 
         })
-        .catch(error =>
-          setImmediate(() => {
+        .catch(error => {
             const errorMessage = `There was an error: ${error}`;
             logger.error(errorMessage);
-            return errorMessage;
-          })
-        );
+            return { code: 400, message: errorMessage };
+        })
   },
   createUser (userData) {
     const {
