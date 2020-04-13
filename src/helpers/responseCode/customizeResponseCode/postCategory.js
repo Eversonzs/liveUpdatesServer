@@ -1,6 +1,6 @@
 const {
-    success: { created },
-    error: { badRequest },
+    success: { ok, created },
+    error: { badRequest, notFound },
 } = require('../standardResponseCode');
 
 module.exports = {
@@ -14,4 +14,14 @@ module.exports = {
     code: created.code,
     messageCode: created.messageCode,
   },
+  postCategoriesNotFound: {
+    message: 'Post categories not found',
+    code: notFound.code,
+    messageCode: notFound.messageCode,
+  },
+  postCategoriesRetrieved: {
+    message: 'Post categories retrieved',
+    code: ok.code,
+    messageCode: ok.messageCode,
+  }
 };
