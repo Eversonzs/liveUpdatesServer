@@ -1,6 +1,6 @@
 {
-  "name": "liveupdatesserver",
-  "version": "0.0.1",
+  "name": "live-updates-server",
+  "version": "0.0.4",
   "description": "Server of developer challenge about live updates",
   "main": "app.js",
   "scripts": {
@@ -18,7 +18,8 @@
   "author": {
     "name": "Everson Zelaya Sanchez",
     "gitHubUsername": "Eversonzs",
-    "gitHubUser": "https://github.com/Eversonzs"
+    "gitHubUser": "https://github.com/Eversonzs",
+    "email": "eversonzs@hotmail.com"
   },
   "license": "ISC",
   "bugs": {
@@ -26,12 +27,20 @@
   },
   "homepage": "https://github.com/Eversonzs/liveUpdatesServer#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-timeout": "^1.9.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
+    "lodash": "^4.17.15",
+    "log4js": "^6.1.2",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "pg": "^8.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
   }
 }
