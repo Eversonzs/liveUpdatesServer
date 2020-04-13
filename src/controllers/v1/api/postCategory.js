@@ -12,6 +12,7 @@ module.exports = {
       return res.status(errorMissingName.code)
         .json({ code: errorMissingName.code, message: errorMissingName.message });
     }
+
     try {
         const postCategoryCreated = await createPostCategory(name, description);
         logger.debug('postCategoryCreated: ', postCategoryCreated);
