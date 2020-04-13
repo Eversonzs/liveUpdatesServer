@@ -8,6 +8,7 @@ const {
   errorMissingUsername,
   errorMissingName,
   errorMissingLastName,
+  userUnauthorized,
   userFound,
 } = require('../../../helpers/responseCode/customizeResponseCode/user');
 
@@ -29,14 +30,19 @@ module.exports = {
         let responseCode = userLogin.code || userFound.code;
         let responseMessage = userLogin.message || userFound.message;
         if (responseCode === 404) {
-            return res.status(responseCode).json({ code: responseCode, message: responseMessage });
+            return res.status(responseCode)
+              .json({ code: responseCode, message: responseMessage });
         }
-        logger.debug('userLogin-->>', userLogin);
-        // Compare if password match
+
+        // Compare if encrypted password match
         const passwordMatch = bcrypt.compareSync(password, userLogin.password);
-        logger.debug('passwordMatch====>>>', passwordMatch);
-        // TODO: send response if user password does not match
-        return res.status(responseCode).json({ code: 200, message: responseMessage, user: userLogin });
+        if (passwordMatch) {
+          return res.status(responseCode)
+            .json({ code: 200, message: responseMessage, user: userLogin });
+        }
+
+        return res.status(userUnauthorized.code)
+          .json({ code: userUnauthorized.code, message: userUnauthorized.message });
     } catch (error) {
         logger.error(`Error retrieving user data: ${error}`);
         return res.status(400).json({ code: 400, message: error });

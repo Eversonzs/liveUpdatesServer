@@ -1,6 +1,6 @@
 const {
     success: { ok, created },
-    error: { badRequest, notFound },
+    error: { badRequest, notFound, unauthorized },
 } = require('../standardResponseCode');
 
 module.exports = {
@@ -34,13 +34,18 @@ module.exports = {
     code: notFound.code,
     messageCode: notFound.messageCode,
   },
+  userUnauthorized: {
+    message: 'Unauthorized user, The credentials provided does not match',
+    code: unauthorized.code,
+    messageCode: unauthorized.messageCode,
+  },
   userFound: {
     message: 'User found',
     code: ok.code,
     messageCode: ok.messageCode,
   },
   userCreated: {
-    message: 'User created successfully.',
+    message: 'User created successfully',
     code: created.code,
     messageCode: created.messageCode,
   },

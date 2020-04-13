@@ -1,6 +1,7 @@
 {
     "error": {
         "badRequest": { "code": 400, "messageCode": "Bad Request" },
+        "unauthorized": { "code": 401, "messageCode": "Unauthorized" },
         "notFound": { "code": 404, "messageCode": "Not Found" }
     },
     "success": {
