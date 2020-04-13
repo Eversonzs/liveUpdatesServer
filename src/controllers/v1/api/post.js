@@ -57,21 +57,26 @@ module.exports = {
     }
   },
 
-  getPostsByCategoryId (req, res) {
-    const { postCategoryId } = req.body;
-    logger.debug('postCategoryId: ', postCategoryId);
+  async getPostsByCategoryId (req, res) {
+    const { postCategoryId } = req.params;
+    logger.info('postCategoryId: ', postCategoryId);
 
-    if (!isNumber(postCategoryId)) {
+    if (isEmpty(postCategoryId)) {
         logger.error(errorMissingPostCategoryId.message);
         return res.status(errorMissingPostCategoryId.code)
           .json({ code: errorMissingPostCategoryId.code, message: errorMissingPostCategoryId.message });
     }
 
-    const posts = getPostsByCategoryId(postCategoryId);
-    logger.debug('posts--->>', posts);
-
-
-    res.status(200).json({ code: 200, message: 'Done' });
-
+    try {
+        const posts = await getPostsByCategoryId(postCategoryId);
+        if (posts.code !== 200) {
+            logger.error(posts.message);
+        }
+        logger.info(posts.message);
+        res.status(posts.code).json(posts);
+    } catch (error) {
+        logger.error(`There was an error: ${error}`);
+        return res.status(400).json({ code: 400, message: error });
+    }
   }
 };

@@ -1,5 +1,5 @@
 const {
-    success: { created },
+    success: { ok, created },
     error: { badRequest },
 } = require('../standardResponseCode');
 
@@ -28,5 +28,15 @@ module.exports = {
     message: 'Post created successfully',
     code: created.code,
     messageCode: created.messageCode,
+  },
+  postsRetrieved: {
+    message: 'Posts retrieved successfully',
+    code: ok.code,
+    messageCode: ok.messageCode
+  },
+  notPostsForCategory: {
+    message: 'There is not posts for this category',
+    code: badRequest.code,
+    messageCode: badRequest.messageCode
   },
 };

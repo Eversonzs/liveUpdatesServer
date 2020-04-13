@@ -2,6 +2,8 @@ const logger = require('../../../../logger')('controllers-v1-postgresql-post');
 const pool = require('../../../services/postgresql/postgresqlConnection');
 const {
     postCreated,
+    postsRetrieved,
+    notPostsForCategory,
 } = require('../../../helpers/responseCode/customizeResponseCode/post');
 
 module.exports = {
@@ -61,12 +63,12 @@ module.exports = {
         .then(postResponse => {
           if (postResponse.rowCount !== 0) {
             return {
-                code: postCreated.code,
-                message: postCreated.message,
+                code: postsRetrieved.code,
+                message: postsRetrieved.message,
                 posts: postResponse.rows,
             };
           }
-          return { code: 400, message: 'Post not retrieved' };
+          return { code: notPostsForCategory.code, message: notPostsForCategory.message };
         })
         .catch(error => {
           const errorMessage = `There was an error creating post: ${error}`;
