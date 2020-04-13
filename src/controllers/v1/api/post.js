@@ -6,7 +6,7 @@ const {
     errorMissingUserId,
     errorMissingDescription,
 } = require('../../../helpers/responseCode/customizeResponseCode/post');
-const { createPost } = require('../postgresql/post');
+const { createPost, getPostsByCategoryId } = require('../postgresql/post');
 
 module.exports = {
   async createPost (req, res) {
@@ -56,4 +56,22 @@ module.exports = {
       return res.status(400).json({ code: 400, message: error });
     }
   },
+
+  getPostsByCategoryId (req, res) {
+    const { postCategoryId } = req.body;
+    logger.debug('postCategoryId: ', postCategoryId);
+
+    if (!isNumber(postCategoryId)) {
+        logger.error(errorMissingPostCategoryId.message);
+        return res.status(errorMissingPostCategoryId.code)
+          .json({ code: errorMissingPostCategoryId.code, message: errorMissingPostCategoryId.message });
+    }
+
+    const posts = getPostsByCategoryId(postCategoryId);
+    logger.debug('posts--->>', posts);
+
+
+    res.status(200).json({ code: 200, message: 'Done' });
+
+  }
 };
