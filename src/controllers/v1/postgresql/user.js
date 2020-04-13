@@ -36,7 +36,8 @@ module.exports = {
     } = userData;
 
     const createUserQuery = `
-        INSERT INTO
+      INSERT INTO live_updates.user(username, email, password, name, lastname, birthday, cellphone)
+	  VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     const userDataParams =  [
         username,
