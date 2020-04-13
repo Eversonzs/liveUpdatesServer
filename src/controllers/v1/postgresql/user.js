@@ -48,6 +48,7 @@ module.exports = {
         birthday,
         cellphone,
     ];
+
     return pool.query(createUserQuery, userDataParams)
         .then(userResponse => {
           if (userResponse.rowCount === 1) {

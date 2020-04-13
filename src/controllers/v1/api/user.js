@@ -56,20 +56,6 @@ module.exports = {
       cellphone,
     } =  req.body;
 
-    logger.debug(`username,
-    email,
-    password,
-    name,
-    lastName,
-    birthday,
-    cellphone,`, username,
-    email,
-    password,
-    name,
-    lastName,
-    birthday,
-    cellphone,);
-
     // Validate required fields received from FE.
     if (isEmpty(email)) {
       logger.error(errorMissingEmail.message);
@@ -86,7 +72,7 @@ module.exports = {
       return res.status(errorMissingUsername.code)
         .json({ code: errorMissingUsername.code, message: errorMissingUsername.message });
     }
-    if (isEmpty(Name)) {
+    if (isEmpty(name)) {
       logger.error(errorMissingName.message);
       return res.status(errorMissingName.code)
         .json({ code: errorMissingName.code, message: errorMissingName.message });
