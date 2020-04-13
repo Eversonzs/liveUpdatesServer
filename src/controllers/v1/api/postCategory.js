@@ -25,7 +25,9 @@ module.exports = {
   async getPostCategories (req, res) {
     try {
         const postCategories = await getPostCategories();
-        logger.debug('postCategories: ', postCategories);
+        if (postCategories.code === 200) {
+            logger.info('Post categories retrieved successfully')
+        }
         return res.status(postCategories.code)
           .json( postCategories );
     } catch (error) {
