@@ -1,6 +1,6 @@
 const logger = require('../../../../logger')('controllers-v1-postgresql-user');
 const pool = require('../../../services/postgresql/postgresqlConnection');
-const { userNotFound } = require('../../../helpers/responseCode/customizeResponseCode/user');
+const { userNotFound, userCreated } = require('../../../helpers/responseCode/customizeResponseCode/user');
 
 module.exports = {
   getUserByEmail (email) {
@@ -52,8 +52,9 @@ module.exports = {
     return pool.query(createUserQuery, userDataParams)
         .then(userResponse => {
           if (userResponse.rowCount === 1) {
-            return userResponse.rows[0];
+            return { code: userCreated.code, message: userCreated.message };
           }
+          return { code: 400, message: 'User not created' };
         })
         .catch(error => {
           const errorMessage = `There was an error creating user: ${error}`;

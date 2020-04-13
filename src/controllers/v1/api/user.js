@@ -97,10 +97,7 @@ module.exports = {
     try {
       const userCreated = await createUser(userData);
       logger.debug('userCreated: ', userCreated);
-      if (userCreated.code === 400) {
-        return res.status(userCreated.code).json({ code: userCreated.code, message: userCreated.message });
-      }
-      return res.status(200).json({ code: 200, message: 'Done' });
+      return res.status(userCreated.code).json({ code: userCreated.code, message: userCreated.message });
     } catch (error) {
       logger.error(`There was an error: ${error}`);
       return res.status(400).json({ code: 400, message: error });

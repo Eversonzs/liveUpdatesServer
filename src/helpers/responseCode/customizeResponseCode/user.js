@@ -1,5 +1,5 @@
 const {
-    success: { ok },
+    success: { ok, created },
     error: { badRequest, notFound },
 } = require('../standardResponseCode');
 
@@ -38,5 +38,10 @@ module.exports = {
     message: 'User found',
     code: ok.code,
     messageCode: ok.messageCode,
-  }
+  },
+  userCreated: {
+    message: 'User created successfully.',
+    code: created.code,
+    messageCode: created.messageCode,
+  },
 };

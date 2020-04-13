@@ -4,6 +4,7 @@
         "notFound": { "code": 404, "messageCode": "Not Found" }
     },
     "success": {
-        "ok": { "code": 200, "messageCode": "OK" }
+        "ok": { "code": 200, "messageCode": "OK" },
+        "created": { "code": 201, "messageCode": "Created" }
     }
 }
