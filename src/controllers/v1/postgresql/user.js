@@ -37,7 +37,7 @@ module.exports = {
 
     const createUserQuery = `
       INSERT INTO live_updates.user(username, email, password, name, lastname, birthday, cellphone)
-	  VALUES ($1, $2, $3, $4, $5, $6, $7)
+	    VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     const userDataParams =  [
         username,
@@ -54,14 +54,11 @@ module.exports = {
           if (userResponse.rowCount === 1) {
             return userResponse.rows[0];
           }
-          return { code: userNotFound.code, message: userNotFound.message }; 
         })
-        .catch(error =>
-          setImmediate(() => {
-            const errorMessage = `There was an error: ${error}`;
-            logger.error(errorMessage);
-            return errorMessage;
-          })
-        );
+        .catch(error => {
+          const errorMessage = `There was an error creating user: ${error}`;
+          logger.error(errorMessage);
+          return { code: 400, message: errorMessage };
+        });
   },
 };

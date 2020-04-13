@@ -40,9 +40,10 @@ module.exports = {
         const passwordMatch = bcrypt.compareSync(password, userLogin.password);
         logger.debug('passwordMatch====>>>', passwordMatch);
         // TODO: send response if user password does not match
-        res.status(responseCode).json({ code: 200, message: responseMessage, user: userLogin });
+        return res.status(responseCode).json({ code: 200, message: responseMessage, user: userLogin });
     } catch (error) {
         logger.error(`Error retrieving user data: ${error}`);
+        return res.status(400).json({ code: 400, message: error });
     }
   },
   async createUser(req, res) {
@@ -96,9 +97,13 @@ module.exports = {
     try {
       const userCreated = await createUser(userData);
       logger.debug('userCreated: ', userCreated);
+      if (userCreated.code === 400) {
+        return res.status(userCreated.code).json({ code: userCreated.code, message: userCreated.message });
+      }
+      return res.status(200).json({ code: 200, message: 'Done' });
     } catch (error) {
       logger.error(`There was an error: ${error}`);
+      return res.status(400).json({ code: 400, message: error });
     }
-    res.status(200).json({ code: 200, message: 'Done' });
   },
 };
