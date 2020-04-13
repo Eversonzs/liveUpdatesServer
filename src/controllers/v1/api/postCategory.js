@@ -12,6 +12,7 @@ module.exports = {
       return res.status(errorMissingName.code)
         .json({ code: errorMissingName.code, message: errorMissingName.message });
     }
+
     try {
         const postCategoryCreated = await createPostCategory(name, description);
         logger.debug('postCategoryCreated: ', postCategoryCreated);
@@ -25,7 +26,9 @@ module.exports = {
   async getPostCategories (req, res) {
     try {
         const postCategories = await getPostCategories();
-        logger.debug('postCategories: ', postCategories);
+        if (postCategories.code === 200) {
+            logger.info('Post categories retrieved successfully')
+        }
         return res.status(postCategories.code)
           .json( postCategories );
     } catch (error) {
