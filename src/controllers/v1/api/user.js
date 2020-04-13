@@ -24,11 +24,7 @@ module.exports = {
       return res.status(errorMissingPassword.code)
         .json({ code: errorMissingPassword.code, message: errorMissingPassword.message });
     }
-    try {
-        // Generate encrypt password to save on db (or receive it from FE)
-        const salt = bcrypt.genSaltSync(10);
-        const encryptedPassword = bcrypt.hashSync(password, salt);
-        
+    try {        
         const userLogin = await getUserByEmail(email);
         let responseCode = userLogin.code || userFound.code;
         let responseMessage = userLogin.message || userFound.message;
@@ -83,11 +79,15 @@ module.exports = {
       return res.status(errorMissingLastName.code)
         .json({ code: errorMissingLastName.code, message: errorMissingLastName.message });
     }
+    
+    // Generate encrypt password to save on db.
+    const salt = bcrypt.genSaltSync(10);
+    const encryptedPassword = bcrypt.hashSync(password, salt);
 
     const userData = {
       username,
       email,
-      password,
+      password: encryptedPassword,
       name,
       lastName,
       birthday,
