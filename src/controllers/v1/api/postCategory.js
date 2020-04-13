@@ -4,7 +4,7 @@ const { errorMissingName } = require('../../../helpers/responseCode/customizeRes
 const { createPostCategory } = require('../postgresql/postCategory');
 
 module.exports = {
-  createPostCategory (req, res) {
+  async createPostCategory (req, res) {
     const { name, description } = req.body;
     logger.debug('name - description', name, ' - ', description);
     if (isEmpty(name)) {

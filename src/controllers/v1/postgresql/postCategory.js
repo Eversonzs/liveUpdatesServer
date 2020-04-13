@@ -1,11 +1,11 @@
 const logger = require('../../../../logger')('controllers-v1-postgresql-postCategory');
 const pool = require('../../../services/postgresql/postgresqlConnection');
-const { postCategoryCreated } = require('../../../helpers/responseCode/customizeResponseCode/user');
+const { postCategoryCreated } = require('../../../helpers/responseCode/customizeResponseCode/postCategory');
 
 module.exports = {
   createPostCategory (name, description) {
     const createUserQuery = `
-      INSERT INTO live_updates.post_category(name, description)
+      INSERT INTO live_updates.post_category(post_category_id, name, description)
 	    VALUES (nextval('live_updates.post_category_id'), $1, $2)
     `;
     const postCategoryData =  [
