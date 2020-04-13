@@ -27,7 +27,7 @@ module.exports = {
         const postCategories = await getPostCategories();
         logger.debug('postCategories: ', postCategories);
         return res.status(postCategories.code)
-          .json({ code: postCategories.code, message: postCategories.message });
+          .json( postCategories );
     } catch (error) {
         logger.error(`There was an error: ${error}`);
         return res.status(400).json({ code: 400, message: error });
