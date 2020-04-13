@@ -1,7 +1,7 @@
 const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-post');
 const { errorMissingTitle } = require('../../../helpers/responseCode/customizeResponseCode/post');
-const {  } = require('../postgresql/postCategory');
+const { createPost } = require('../postgresql/post');
 
 module.exports = {
   async createPost (req, res) {
@@ -21,5 +21,7 @@ module.exports = {
     }
 
     // TODO: add validation for required fields.
+
+
   },
 };
