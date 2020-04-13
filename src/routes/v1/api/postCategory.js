@@ -7,5 +7,6 @@ const {
 const router = express.Router();
 
 router.post('/create', createPostCategory);
+router.get('/', createPostCategory);
 
 module.exports = router;
