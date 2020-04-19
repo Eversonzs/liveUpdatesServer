@@ -37,6 +37,7 @@ module.exports = {
         // Compare if encrypted password match
         const passwordMatch = bcrypt.compareSync(password, userLogin.password);
         if (passwordMatch) {
+          delete userLogin.password;
           return res.status(responseCode)
             .json({ code: 200, message: responseMessage, user: userLogin });
         }

@@ -35,6 +35,7 @@ CREATE TABLE live_updates."user"
     lastname character varying(100) NOT NULL,
     birthday date,
     cellphone character varying(50),
+    photo text,
     PRIMARY KEY (user_id),
     UNIQUE (username),
     UNIQUE (email)
