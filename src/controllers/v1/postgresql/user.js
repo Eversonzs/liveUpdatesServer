@@ -75,7 +75,7 @@ module.exports = {
 
   getUserByUsername (username) {
     const queryGetUserInfo = `
-      SELECT user_id, username, email, password, name, lastname, birthday, cellphone, photo
+      SELECT user_id, username, email, name, lastname, birthday, cellphone, photo
       FROM live_updates.user
       WHERE username = $1
     `;
