@@ -4,7 +4,7 @@ const { userNotFound, userCreated } = require('../../../helpers/responseCode/cus
 
 module.exports = {
   getUserByEmail (email) {
-    const queryGetUserLogin = `SELECT user_id, username, email, password
+    const queryGetUserLogin = `SELECT user_id, username, email, password, photo
       FROM live_updates.user
       WHERE email = $1
     `;
