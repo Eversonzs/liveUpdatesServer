@@ -58,6 +58,7 @@ module.exports = {
       lastName,
       birthday,
       cellphone,
+      photo,
     } =  req.body;
 
     // Validate required fields received from FE.
@@ -99,6 +100,7 @@ module.exports = {
       lastName,
       birthday,
       cellphone,
+      photo,
     };
 
     try {

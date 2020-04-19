@@ -22,6 +22,7 @@ module.exports = {
             return { code: 400, message: errorMessage };
         })
   },
+
   createUser (userData) {
     const {
         username,
@@ -31,11 +32,12 @@ module.exports = {
         lastName,
         birthday,
         cellphone,
+        photo,
     } = userData;
 
     const createUserQuery = `
-      INSERT INTO live_updates.user(user_id, username, email, password, name, lastname, birthday, cellphone)
-	    VALUES (nextval('live_updates.user_id'), $1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO live_updates.user(user_id, username, email, password, name, lastname, birthday, cellphone, photo)
+	    VALUES (nextval('live_updates.user_id'), $1, $2, $3, $4, $5, $6, $7, $8)
     `;
     const userDataParams =  [
         username,
@@ -45,6 +47,7 @@ module.exports = {
         lastName,
         birthday,
         cellphone,
+        photo,
     ];
 
     return pool.query(createUserQuery, userDataParams)
