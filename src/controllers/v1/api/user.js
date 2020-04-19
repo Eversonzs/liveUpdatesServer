@@ -59,7 +59,7 @@ module.exports = {
       birthday,
       cellphone,
       photo,
-    } =  req.body;
+    } =  req.body.userData;
 
     // Validate required fields received from FE.
     if (isEmpty(email)) {
