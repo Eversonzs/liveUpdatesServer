@@ -133,7 +133,19 @@ module.exports = {
     }
 
     const userRetrieved = await getUserByUsername(username);
-    return res.status(userRetrieved.code)
-      .json({ code: userRetrieved.code, message: userRetrieved.message });
+    if (userRetrieved.code === 200) {
+      return res.status(userRetrieved.code)
+        .json({
+          code: userRetrieved.code,
+          message: userRetrieved.message,
+          userData: userRetrieved.userInfo,
+        });
+    } else {
+      return res.status(userRetrieved.code)
+        .json({
+          code: userRetrieved.code,
+          message: userRetrieved.message,
+        });
+    }
   }
 };

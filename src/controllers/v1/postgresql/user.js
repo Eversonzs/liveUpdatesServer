@@ -1,6 +1,10 @@
 const logger = require('../../../../logger')('controllers-v1-postgresql-user');
 const pool = require('../../../services/postgresql/postgresqlConnection');
-const { userNotFound, userCreated } = require('../../../helpers/responseCode/customizeResponseCode/user');
+const {
+  userNotFound,
+  userCreated,
+  userRetrieved,
+} = require('../../../helpers/responseCode/customizeResponseCode/user');
 
 module.exports = {
   getUserByEmail (email) {
@@ -79,8 +83,8 @@ module.exports = {
         .then(userResponse => {
           if (userResponse.rowCount === 1) {
             return {
-              code: 200,
-              message: 'User retrieved successfully.',
+              code: userRetrieved.code,
+              message: userRetrieved.message,
               userInfo: userResponse.rows[0],
             };
           }
