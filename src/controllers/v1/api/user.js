@@ -1,7 +1,11 @@
 const bcrypt = require('bcryptjs');
 const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-user');
-const { getUserByEmail, createUser } = require('../postgresql/user');
+const {
+  getUserByEmail,
+  createUser,
+  getUserByUsername,
+} = require('../postgresql/user');
 const {
   errorMissingEmail,
   errorMissingPassword,
@@ -49,7 +53,8 @@ module.exports = {
         return res.status(400).json({ code: 400, message: error });
     }
   },
-  async createUser(req, res) {
+
+  async createUser (req, res) {
     const {
       username,
       email,
@@ -116,4 +121,19 @@ module.exports = {
       return res.status(400).json({ code: 400, message: error });
     }
   },
+
+  async getByUsername (req, res) {
+    const { username } = req.params;
+    logger.info('username: ', username);
+
+    if (isEmpty(username)) {
+      logger.error(errorMissingUsername.message);
+      return res.status(errorMissingUsername.code)
+        .json({ code: errorMissingUsername.code, message: errorMissingUsername.message });
+    }
+
+    const userRetrieved = await getUserByUsername(username);
+    return res.status(userRetrieved.code)
+      .json({ code: userRetrieved.code, message: userRetrieved.message });
+  }
 };

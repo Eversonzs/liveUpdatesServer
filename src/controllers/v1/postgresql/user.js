@@ -68,4 +68,29 @@ module.exports = {
           return { code: 400, message: errorMessage };
         });
   },
+
+  getUserByUsername (username) {
+    const queryGetUserInfo = `
+      SELECT user_id, username, email, password, name, lastname, birthday, cellphone, photo
+      FROM live_updates.user
+      WHERE username = $1
+    `;
+    return pool.query(queryGetUserInfo, [username])
+        .then(userResponse => {
+          if (userResponse.rowCount === 1) {
+            return {
+              code: 200,
+              message: 'User retrieved successfully.',
+              userInfo: userResponse.rows[0],
+            };
+          }
+          return { code: userNotFound.code, message: userNotFound.message }; 
+        })
+        .catch(error => {
+            const errorMessage = `There was an error: ${error}`;
+            logger.error(errorMessage);
+            return { code: 400, message: errorMessage };
+        })
+  },
+
 };
