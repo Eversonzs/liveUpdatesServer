@@ -58,7 +58,12 @@ module.exports = {
           return { code: 400, message: 'User not created' };
         })
         .catch(error => {
-          const errorMessage = `There was an error creating user: ${error}`;
+          let errorMessage = '';
+          if (error.detail) {
+            errorMessage = error.detail;
+          } else {
+            errorMessage = `Error: ${error}`;
+          }
           logger.error(errorMessage);
           return { code: 400, message: errorMessage };
         });
