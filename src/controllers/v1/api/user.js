@@ -87,6 +87,10 @@ module.exports = {
       return res.status(errorMissingLastName.code)
         .json({ code: errorMissingLastName.code, message: errorMissingLastName.message });
     }
+    let birthDay = birthday;
+    if (isEmpty(birthday)) {
+      birthDay = null;
+    }
     
     // Generate encrypt password to save on db.
     const salt = bcrypt.genSaltSync(10);
@@ -98,7 +102,7 @@ module.exports = {
       password: encryptedPassword,
       name,
       lastName,
-      birthday,
+      birthday: birthDay,
       cellphone,
       photo,
     };
