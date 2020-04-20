@@ -33,7 +33,9 @@ app.use(
   })
 );
 
-app.use(bp.urlencoded({ extended: false }));
+app.use(bp.urlencoded({ limit: '5mb', extended: true }));
+app.use(bp.json({ limit: '5mb', extended: true }));
+
 app.use(bp.json());
 app.use(timeout('3000s'));
 app.use(morganLogger('dev'));

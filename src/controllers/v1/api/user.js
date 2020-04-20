@@ -1,7 +1,11 @@
 const bcrypt = require('bcryptjs');
 const { isEmpty } = require('lodash');
 const logger = require('../../../../logger')('controller-user');
-const { getUserByEmail, createUser } = require('../postgresql/user');
+const {
+  getUserByEmail,
+  createUser,
+  getUserByUsername,
+} = require('../postgresql/user');
 const {
   errorMissingEmail,
   errorMissingPassword,
@@ -37,6 +41,7 @@ module.exports = {
         // Compare if encrypted password match
         const passwordMatch = bcrypt.compareSync(password, userLogin.password);
         if (passwordMatch) {
+          delete userLogin.password;
           return res.status(responseCode)
             .json({ code: 200, message: responseMessage, user: userLogin });
         }
@@ -48,7 +53,8 @@ module.exports = {
         return res.status(400).json({ code: 400, message: error });
     }
   },
-  async createUser(req, res) {
+
+  async createUser (req, res) {
     const {
       username,
       email,
@@ -57,7 +63,8 @@ module.exports = {
       lastName,
       birthday,
       cellphone,
-    } =  req.body;
+      photo,
+    } =  req.body.userData;
 
     // Validate required fields received from FE.
     if (isEmpty(email)) {
@@ -85,6 +92,10 @@ module.exports = {
       return res.status(errorMissingLastName.code)
         .json({ code: errorMissingLastName.code, message: errorMissingLastName.message });
     }
+    let birthDay = birthday;
+    if (isEmpty(birthday)) {
+      birthDay = null;
+    }
     
     // Generate encrypt password to save on db.
     const salt = bcrypt.genSaltSync(10);
@@ -96,8 +107,9 @@ module.exports = {
       password: encryptedPassword,
       name,
       lastName,
-      birthday,
+      birthday: birthDay,
       cellphone,
+      photo,
     };
 
     try {
@@ -109,4 +121,31 @@ module.exports = {
       return res.status(400).json({ code: 400, message: error });
     }
   },
+
+  async getByUsername (req, res) {
+    const { username } = req.params;
+    logger.info('username: ', username);
+
+    if (isEmpty(username)) {
+      logger.error(errorMissingUsername.message);
+      return res.status(errorMissingUsername.code)
+        .json({ code: errorMissingUsername.code, message: errorMissingUsername.message });
+    }
+
+    const userRetrieved = await getUserByUsername(username);
+    if (userRetrieved.code === 200) {
+      return res.status(userRetrieved.code)
+        .json({
+          code: userRetrieved.code,
+          message: userRetrieved.message,
+          userData: userRetrieved.userInfo,
+        });
+    } else {
+      return res.status(userRetrieved.code)
+        .json({
+          code: userRetrieved.code,
+          message: userRetrieved.message,
+        });
+    }
+  }
 };

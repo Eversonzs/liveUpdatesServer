@@ -49,4 +49,9 @@ module.exports = {
     code: created.code,
     messageCode: created.messageCode,
   },
+  userRetrieved: {
+    message: 'User retrieved successfully',
+    code: ok.code,
+    messageCode: ok.messageCode,
+  },
 };
