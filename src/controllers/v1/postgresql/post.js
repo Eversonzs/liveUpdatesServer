@@ -52,7 +52,9 @@ module.exports = {
 
   getPostsByCategoryId (postCategoryId) {
     const getPostsByCategoryIdQuery = `
-      SELECT A.post_id, B.name AS category_name, C.username, A.title, A.description, A.image, A.timestamp
+      SELECT A.post_id, B.name AS category_name,
+      C.username, A.title, A.description, A.image, A.timestamp,
+      C.photo AS user_photo
       FROM live_updates.post as A
       INNER JOIN live_updates.post_category as B ON A.post_category_id = B.post_category_id
       INNER JOIN live_updates.user AS C ON A.user_id = C.user_id
