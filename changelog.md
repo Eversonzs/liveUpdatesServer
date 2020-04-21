@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 ## Feature
+## [1.0.0] - 2020-04-20
+* Live updates first version to deploy.
+## Feature
 ## [0.0.6] - 2020-04-13
 * Endpoint for create post, retrieve posts by category id and retrieve all posts.
 ## Feature

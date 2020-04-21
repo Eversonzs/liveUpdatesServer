@@ -1,6 +1,6 @@
 {
   "name": "live-updates-server",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Server of developer challenge about live updates",
   "main": "app.js",
   "scripts": {
